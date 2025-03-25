@@ -1,0 +1,18 @@
+﻿services:
+  momcareplus.api:
+    image: momcareplus.api
+    build:
+      context: .
+      dockerfile: MomCarePlus.API/Dockerfile
+
+  momcareplus.domain:
+    image: momcareplus.domain
+    build:
+      context: .
+      dockerfile: MomCarePlus.Domain/Dockerfile
+
+  momcareplus.infrastructure:
+    image: momcareplus.infrastructure
+    build:
+      context: .
+      dockerfile: MomCarePlus.Infrastructure/Dockerfile
