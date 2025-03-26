@@ -21,6 +21,7 @@ public class ApplicationDbContext : DbContext
         modelBuilder.Entity<User>(entity =>
         {
             entity.HasKey(e => e.Id);
+            entity.Property(e => e.Id).HasDefaultValueSql("gen_random_uuid()");
             entity.Property(e => e.Email).IsRequired().HasMaxLength(100);
             entity.Property(e => e.PasswordHash).IsRequired();
             entity.Property(e => e.FullName).IsRequired().HasMaxLength(100);
@@ -31,6 +32,7 @@ public class ApplicationDbContext : DbContext
         modelBuilder.Entity<PregnancyProfile>(entity =>
         {
             entity.HasKey(e => e.Id);
+            entity.Property(e => e.Id).HasDefaultValueSql("gen_random_uuid()");
             entity.Property(e => e.Height).HasPrecision(5, 2);
             entity.Property(e => e.StartWeight).HasPrecision(5, 2);
             entity.Property(e => e.CurrentWeight).HasPrecision(5, 2);
@@ -47,6 +49,7 @@ public class ApplicationDbContext : DbContext
         modelBuilder.Entity<HealthTracking>(entity =>
         {
             entity.HasKey(e => e.Id);
+            entity.Property(e => e.Id).HasDefaultValueSql("gen_random_uuid()");
             entity.Property(e => e.Weight).HasPrecision(5, 2);
             entity.Property(e => e.Symptoms).HasMaxLength(500);
             entity.Property(e => e.Notes).HasMaxLength(1000);

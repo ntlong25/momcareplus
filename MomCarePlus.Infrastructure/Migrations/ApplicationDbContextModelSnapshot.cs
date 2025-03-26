@@ -24,11 +24,10 @@ namespace MomCarePlus.Infrastructure.Migrations
 
             modelBuilder.Entity("MomCarePlus.Domain.Entities.HealthTracking", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("uuid")
+                        .HasDefaultValueSql("gen_random_uuid()");
 
                     b.Property<int?>("BloodPressureDiastolic")
                         .HasColumnType("integer");
@@ -44,8 +43,8 @@ namespace MomCarePlus.Infrastructure.Migrations
                         .HasMaxLength(1000)
                         .HasColumnType("character varying(1000)");
 
-                    b.Property<int>("PregnancyProfileId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("PregnancyProfileId")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Symptoms")
                         .IsRequired()
@@ -68,11 +67,10 @@ namespace MomCarePlus.Infrastructure.Migrations
 
             modelBuilder.Entity("MomCarePlus.Domain.Entities.PregnancyProfile", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("uuid")
+                        .HasDefaultValueSql("gen_random_uuid()");
 
                     b.Property<string>("BloodType")
                         .IsRequired()
@@ -113,8 +111,8 @@ namespace MomCarePlus.Infrastructure.Migrations
                         .HasPrecision(5, 2)
                         .HasColumnType("numeric(5,2)");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -125,11 +123,10 @@ namespace MomCarePlus.Infrastructure.Migrations
 
             modelBuilder.Entity("MomCarePlus.Domain.Entities.User", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("uuid")
+                        .HasDefaultValueSql("gen_random_uuid()");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");

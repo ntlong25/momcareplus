@@ -2,8 +2,8 @@ namespace MomCarePlus.Domain.Entities
 {
     public class HealthTracking
     {
-        public int Id { get; set; }
-        public int PregnancyProfileId { get; set; }
+        public Guid Id { get; set; }
+        public Guid PregnancyProfileId { get; set; }
         public PregnancyProfile PregnancyProfile { get; set; }
         public DateTime TrackingDate { get; set; }
         public decimal Weight { get; set; }
