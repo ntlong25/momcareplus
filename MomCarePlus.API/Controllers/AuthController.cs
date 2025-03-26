@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using MomCarePlus.Domain.DTOs.Auth;
-using MomCarePlus.Domain.Interfaces;
+using System.ComponentModel.DataAnnotations;
+using MomCarePlus.Application.DTOs.Auth;
+using MomCarePlus.Application.Interfaces;
 
 namespace MomCarePlus.API.Controllers;
 
@@ -23,9 +24,13 @@ public class AuthController : ControllerBase
             var result = await _authService.RegisterAsync(registerDto);
             return Ok(result);
         }
-        catch (Exception ex)
+        catch (ValidationException ex)
         {
             return BadRequest(new { message = ex.Message });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { message = "An error occurred while processing your request" });
         }
     }
 
@@ -37,9 +42,13 @@ public class AuthController : ControllerBase
             var result = await _authService.LoginAsync(loginDto);
             return Ok(result);
         }
-        catch (Exception ex)
+        catch (ValidationException ex)
         {
             return BadRequest(new { message = ex.Message });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { message = "An error occurred while processing your request" });
         }
     }
 } 

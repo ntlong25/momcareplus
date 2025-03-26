@@ -1,6 +1,6 @@
 using MomCarePlus.Domain.Enums;
 
-namespace MomCarePlus.Domain.DTOs.Auth;
+namespace MomCarePlus.Application.DTOs.Auth;
 
 public class AuthResponseDto
 {

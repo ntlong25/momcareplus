@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MomCarePlus.Infrastructure.Data;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MomCarePlus.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250326075940_UpdatePregnancy")]
+    partial class UpdatePregnancy
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,10 +58,6 @@ namespace MomCarePlus.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Stage");
-
-                    b.HasIndex("Type");
-
                     b.ToTable("PregnancyAdvices");
                 });
 
@@ -98,8 +97,6 @@ namespace MomCarePlus.Infrastructure.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("DueDate");
 
                     b.HasIndex("PregnancyProfileId");
 
@@ -142,8 +139,7 @@ namespace MomCarePlus.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
+                    b.HasIndex("UserId");
 
                     b.ToTable("PregnancyProfiles");
                 });
@@ -176,11 +172,9 @@ namespace MomCarePlus.Infrastructure.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("PhoneNumber")
+                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("character varying(20)");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("UserType")
                         .HasColumnType("integer");
@@ -207,17 +201,12 @@ namespace MomCarePlus.Infrastructure.Migrations
             modelBuilder.Entity("MomCarePlus.Domain.Entities.PregnancyProfile", b =>
                 {
                     b.HasOne("MomCarePlus.Domain.Entities.User", "User")
-                        .WithOne("PregnancyProfile")
-                        .HasForeignKey("MomCarePlus.Domain.Entities.PregnancyProfile", "UserId")
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("MomCarePlus.Domain.Entities.User", b =>
-                {
-                    b.Navigation("PregnancyProfile");
                 });
 #pragma warning restore 612, 618
         }

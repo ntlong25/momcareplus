@@ -1,3 +1,5 @@
+using MomCarePlus.Domain.Enums;
+
 namespace MomCarePlus.Domain.Entities
 {
     public class PregnancyProfile
@@ -5,15 +7,13 @@ namespace MomCarePlus.Domain.Entities
         public Guid Id { get; set; }
         public Guid UserId { get; set; }
         public User User { get; set; }
-        public DateTime ExpectedDueDate { get; set; }
-        public DateTime FirstDayOfLastMenstrualPeriod { get; set; }
-        public int PregnancyWeek { get; set; }
-        public decimal Height { get; set; }
-        public decimal StartWeight { get; set; }
-        public decimal CurrentWeight { get; set; }
-        public string BloodType { get; set; }
-        public string RhFactor { get; set; }
-        public string MedicalHistory { get; set; }
+        public PregnancyStage Stage { get; set; }
+        public DateTime? LastPeriodDate { get; set; }
+        public DateTime? ExpectedDeliveryDate { get; set; }
+        public int? CurrentWeek { get; set; }
+        public bool IsPlanningPregnancy { get; set; }
+        public GenderPreference? GenderPreference { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime? UpdatedAt { get; set; }
     }
 } 

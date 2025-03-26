@@ -2,10 +2,11 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using MomCarePlus.Application.Interfaces;
 using MomCarePlus.Domain.Interfaces;
 using MomCarePlus.Infrastructure.Data;
 using MomCarePlus.Infrastructure.Repositories;
-using MomCarePlus.Infrastructure.Services;
+using MomCarePlus.Application.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

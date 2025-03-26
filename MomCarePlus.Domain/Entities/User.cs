@@ -9,8 +9,12 @@ namespace MomCarePlus.Domain.Entities
         public string PasswordHash { get; set; }
         public string FullName { get; set; }
         public DateTime? DateOfBirth { get; set; }
-        public string PhoneNumber { get; set; }
+        public string? PhoneNumber { get; set; }
         public UserType UserType { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime? UpdatedAt { get; set; }
+
+        // Navigation property
+        public PregnancyProfile? PregnancyProfile { get; set; }
     }
 } 

@@ -1,6 +1,6 @@
-using MomCarePlus.Domain.DTOs.Auth;
+using MomCarePlus.Application.DTOs.Auth;
 
-namespace MomCarePlus.Domain.Interfaces;
+namespace MomCarePlus.Application.Interfaces;
 
 public interface IAuthService
 {
