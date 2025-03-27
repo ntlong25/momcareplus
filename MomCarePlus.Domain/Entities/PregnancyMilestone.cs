@@ -7,6 +7,8 @@ public class PregnancyMilestone
     public Guid Id { get; set; }
     public Guid PregnancyProfileId { get; set; }
     public PregnancyProfile PregnancyProfile { get; set; }
+    public Guid UserId { get; set; }
+    public User User { get; set; }
     public string Title { get; set; }
     public string Description { get; set; }
     public DateTime DueDate { get; set; }

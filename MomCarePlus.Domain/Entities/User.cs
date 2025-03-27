@@ -14,7 +14,8 @@ namespace MomCarePlus.Domain.Entities
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime? UpdatedAt { get; set; }
 
-        // Navigation property
+        // Navigation properties
         public PregnancyProfile? PregnancyProfile { get; set; }
+        public List<PregnancyMilestone> Milestones { get; set; } = new();
     }
 } 

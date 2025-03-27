@@ -12,4 +12,8 @@ public class PregnancyAdvice
     public bool IsRecommended { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime? UpdatedAt { get; set; }
+
+    // Navigation properties
+    public List<PregnancyAdviceCategory> Categories { get; set; } = new();
+    public List<PregnancyAdviceTag> Tags { get; set; } = new();
 } 
