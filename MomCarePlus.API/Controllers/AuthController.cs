@@ -6,7 +6,7 @@ using MomCarePlus.Application.Interfaces;
 namespace MomCarePlus.API.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/")]
 public class AuthController : ControllerBase
 {
     private readonly IAuthService _authService;
