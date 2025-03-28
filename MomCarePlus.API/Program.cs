@@ -7,6 +7,7 @@ using MomCarePlus.Domain.Interfaces;
 using MomCarePlus.Infrastructure.Data;
 using MomCarePlus.Infrastructure.Repositories;
 using MomCarePlus.Application.Services;
+using MomCarePlus.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,6 +41,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 // Register services
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
 
 var app = builder.Build();
 
@@ -54,6 +56,5 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
-
 
 app.Run();

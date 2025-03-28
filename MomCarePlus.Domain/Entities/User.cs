@@ -13,9 +13,7 @@ namespace MomCarePlus.Domain.Entities
         public UserType UserType { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime? UpdatedAt { get; set; }
-
-        // Navigation properties
-        public PregnancyProfile? PregnancyProfile { get; set; }
-        public List<PregnancyMilestone> Milestones { get; set; } = new();
+        public string? PasswordResetToken { get; set; }
+        public DateTime? PasswordResetTokenExpiry { get; set; }
     }
 } 

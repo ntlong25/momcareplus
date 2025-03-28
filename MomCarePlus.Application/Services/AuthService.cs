@@ -10,6 +10,7 @@ using System.ComponentModel.DataAnnotations;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Security.Cryptography;
 
 namespace MomCarePlus.Application.Services;
 
@@ -18,15 +19,18 @@ public class AuthService : IAuthService
     private readonly IUserRepository _userRepository;
     private readonly IConfiguration _configuration;
     private readonly ILogger<AuthService> _logger;
+    private readonly IEmailService _emailService;
 
     public AuthService(
         IUserRepository userRepository, 
         IConfiguration configuration,
-        ILogger<AuthService> logger)
+        ILogger<AuthService> logger,
+        IEmailService emailService)
     {
         _userRepository = userRepository;
         _configuration = configuration;
         _logger = logger;
+        _emailService = emailService;
     }
 
     public async Task<AuthResponseDto> RegisterAsync(RegisterDto registerDto)
@@ -120,6 +124,55 @@ public class AuthService : IAuthService
         }
 
         return BCrypt.Net.BCrypt.Verify(password, user.PasswordHash);
+    }
+
+    public async Task<bool> ForgotPasswordAsync(string email)
+    {
+        var user = await _userRepository.GetByEmailAsync(email);
+        if (user == null)
+        {
+            // Don't reveal that the user does not exist
+            return true;
+        }
+
+        // Generate 6-digit code
+        var code = RandomNumberGenerator.GetInt32(100000, 999999).ToString();
+        var tokenExpiry = DateTime.UtcNow.AddMinutes(10); // Token expires in 10 minutes
+
+        // Store code in user entity
+        user.PasswordResetToken = code;
+        user.PasswordResetTokenExpiry = tokenExpiry;
+        await _userRepository.UpdateAsync(user);
+
+        // Send email with reset code
+        await _emailService.SendPasswordResetEmailAsync(email, code);
+
+        return true;
+    }
+
+    public async Task<bool> ResetPasswordAsync(string email, string token, string newPassword)
+    {
+        var user = await _userRepository.GetByEmailAsync(email);
+        if (user == null)
+        {
+            return false;
+        }
+
+        if (user.PasswordResetToken != token || 
+            user.PasswordResetTokenExpiry == null || 
+            user.PasswordResetTokenExpiry < DateTime.UtcNow)
+        {
+            return false;
+        }
+
+        // Hash new password
+        var passwordHash = BCrypt.Net.BCrypt.HashPassword(newPassword);
+        user.PasswordHash = passwordHash;
+        user.PasswordResetToken = null;
+        user.PasswordResetTokenExpiry = null;
+
+        await _userRepository.UpdateAsync(user);
+        return true;
     }
 
     private string GenerateJwtToken(User user)
